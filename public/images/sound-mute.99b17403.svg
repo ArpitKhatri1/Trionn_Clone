@@ -1,0 +1,8 @@
+<svg viewBox="0 0 10 8" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g id="Audio" transform="translate(0.250000, 0.25000)" stroke="#e0eeee" stroke-width="0.5" fill-rule="evenodd"
+    stroke-linecap="round">
+    <line x1="6.25" y1="2.5" x2="6.25" y2="6" id="Line-4"></line>
+    <line x1="4.75" y1="1.5" x2="4.75" y2="6" id="Line-3"></line>
+    <line x1="3.25" y1="3.5" x2="3.25" y2="6" id="Line-2"></line>
+  </g>
+</svg>
