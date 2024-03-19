@@ -1202,6 +1202,8 @@ button.s1 {
   flex-shrink: 0;
   touch-action: auto;
   min-height: 420px;
+  max-height: 800px;
+  max-width: 700px;
 }
 
 .review-elements {
@@ -1237,8 +1239,10 @@ button.s1 {
   touch-action: auto;
   flex-shrink: 0;
   justify-content: center;
-  padding: 4rem 3rem;
+  padding: 3rem 3rem;
   min-height: 420px;
+  max-height: 800px;
+  max-width: 700px;
 }
 
 @media screen and (max-width: 800px) {
