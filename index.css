@@ -406,7 +406,7 @@ body {
  min-width: 100vw;
   height: 100vh;
   background-color: var(--loaderBg);
-  z-index: 909;
+  z-index: 909999;
   pointer-events: none ;
   clip-path: ellipse(65% 0% at 48% 99%);
   animation: initialLoadAnimation 1s linear forwards
@@ -423,7 +423,7 @@ body {
  min-width: 100vw;
   height: 100vh;
   background-color: var(--loaderBg);
-  z-index: 909;
+  z-index: 9099999;
   pointer-events: none ;
   clip-path: ellipse(65% 0% at 48% 99%);
 }
@@ -435,7 +435,7 @@ body {
  min-width: 100vw;
   height: 100vh;
   background-color: var(--loaderBg);
-  z-index: 909;
+  z-index: 909999;
   pointer-events: none ;
   clip-path: ellipse(65% 0% at 48% 99%);
 
@@ -1460,6 +1460,7 @@ touch-action: auto;
   margin-top: 10rem;
   width: 100%;
   /* overflow: hidden; */
+ 
 
   padding-left: var(--padding-horizontal);
   padding-right: var(--padding-horizontal);
@@ -1477,6 +1478,7 @@ touch-action: auto;
   position: relative;
   justify-content: center;
   /* overflow-x: hidden; */
+  pointer-events: none;
 }
 
 @media screen and (max-width:767px){
@@ -1547,6 +1549,7 @@ touch-action: auto;
   background-color: transparent;
   border-radius: 9999px;
   font-family: "SYNE";
+  z-index: 99;
 }
 
 .dribble-button {

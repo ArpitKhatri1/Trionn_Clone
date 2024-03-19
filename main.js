@@ -1210,7 +1210,7 @@ document.getElementsByClassName("scrollup")[0].addEventListener("click",()=>{
 
 document.getElementsByClassName("video-down-arrow")[0].addEventListener("click",()=>{
   window.scrollTo({
-    top:window.innerHeight - window.innerHeight/10,
+    top:window.innerHeight,
     behavior:"smooth"
   })
 })
