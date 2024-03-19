@@ -682,6 +682,49 @@ scrollContainer.addEventListener("mousemove", dragging);
 scrollContainer.addEventListener("mousedown", dragStart);
 scrollContainer.addEventListener("mouseup", dragEnd);
 
+//marquee
+
+let marqueef = document.getElementsByClassName("dive-in-container")[0]
+let marqueer = document.getElementsByClassName("dive-in-container-reverse")[0]
+
+const flexContainer = document.querySelector('.dive-in-container');
+const style = window.getComputedStyle(flexContainer);
+const gapValue = style.getPropertyValue('gap');
+
+
+const gapDistance = parseFloat(gapValue);
+
+console.log(gapDistance)
+
+ 
+
+let distanceTranX = -1 * (document.getElementsByClassName("dive-in-container")[0].children[0].clientWidth+gapDistance)
+let distanceTranXrev = -1 * (document.getElementsByClassName("dive-in-container-reverse")[0].children[0].clientWidth+gapDistance)
+
+console.log(distanceTranX)
+
+gsap.fromTo(
+  marqueef.children,
+  {x:0},
+  {x:distanceTranX,duration:5,ease:"none",repeat:-1}
+)
+
+gsap.fromTo(
+  marqueer.children,
+  {x:distanceTranXrev},
+  {x: 0 ,duration:5,ease:"none",repeat:-1}
+)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

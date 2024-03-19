@@ -350,7 +350,7 @@
 
 ::-webkit-scrollbar {
   background-color: transparent;
-  width: 0.65rem;
+  width: 15px;
 }
 
 
@@ -1402,34 +1402,51 @@ touch-action: auto;
 .dive-in-section {
   max-width: 100%;
 }
-@keyframes slide1 {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-105.5%);
-  }
-}
-@keyframes slide2 {
-  from {
-    transform: translateX(-105.5%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
+
 .dive-in-section {
-  height: 100vh;
+ 
   margin-top: 13rem;
-  margin-bottom: 10rem;
+  
 }
-.dive-in-container {
-  height: auto;
+.dive-in-container-reverse{
   overflow: hidden;
   display: flex;
-  gap: 3rem;
-  margin-bottom: -6rem;
+  gap: 80px;
+
 }
+.dive-in-container {
+ 
+  overflow: hidden;
+  display: flex;
+  gap: 80px;
+ 
+}
+
+@media screen and (min-width:1200px) {
+  .dive-in-container{
+    gap: 140px ;
+  }
+  .dive-in-container-reverse{
+    
+    gap: 140px;
+  
+  }
+  
+}
+
+@media screen and (max-width:768px) {
+  .dive-in-container{
+    gap: 40px ;
+  }
+  .dive-in-container-reverse{
+    
+    gap: 40px;
+  
+  }
+  
+}
+
+
 
 .di-first-text {
   font-family: "MyFont";
@@ -1437,24 +1454,11 @@ touch-action: auto;
   display: inline-block;
   flex-shrink: 0;
   align-items: center;
-  gap: 3rem;
-  animation: slide1 2s infinite linear;
+  /* gap: 3rem; */
+ 
 }
-.di-second-text {
-  font-family: "MyFont";
-  font-size: var(--section-heading-font-size);
-  display: inline-block;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 3rem;
-  animation: slide2 2s infinite linear;
-}
-.di-line {
-  display: inline-block;
-  font-size: var(--section-heading-font-size);
-  padding: 2rem;
-  transform: scaleX(3) scaleY(0.75);
-}
+
+
 
 .dribble-container {
   margin-top: 10rem;
