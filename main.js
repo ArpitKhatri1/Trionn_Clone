@@ -93,16 +93,17 @@ let t5 = gsap.timeline()
 function hamburgerAnimation() {
   
   let listItem = gsap.utils.toArray(".hs-list-item");
-  let socialIcons = gsap.utils.toArray(".social-icon")
+  let socialIcons = gsap.utils.toArray(".social-icons")
 
   listItem.forEach((section) => {
     t5.from(section, { y: 50, opacity: 0, duration: .3},"-=.1");
   });
-  socialIcons.forEach((section) => {
-    t5.from(section, { y: 20, opacity: 0, duration: .25},"-=.1");
-  });
+  
   t5.from(".hs-email",{y: 50, opacity: 0, duration: .3},"-=1")
   t5.from(".hs-phone",{y: 50, opacity: 0, duration: .3},"-=.8")
+  socialIcons.forEach((section) => {
+    t5.from(section, { y: 20, opacity: 0, duration: .25},"-=.3");
+  });
  
 
   
@@ -166,6 +167,7 @@ hamburgerMenuButton.addEventListener("click", () => {
       document.getElementsByClassName(
         "hamburger-section-container"
       )[0].style.visibility = "hidden";
+     
 
       hamburgerMenuButton.classList.add("hidden");
      
@@ -1046,17 +1048,44 @@ footerLines.forEach((section) => {
   });
 });
 
-gsap.from(".contact-info", {
-  y: 30,
-  opacity: 0,
-  scrollTrigger: {
-    trigger: ".contact-info",
-    markers: false,
-    start: "20% bottom",
-    end: "100% center",
-    toggleActions: "play none none reverse",
-  },
+let mmFooterAnimation = gsap.matchMedia();
+
+mmFooterAnimation.add("(min-width:961px)",()=>{
+  gsap.from(".contact-info", {
+    y: 30,
+    opacity: 0,
+    scrollTrigger: {
+      trigger: ".contact-info",
+      markers: false,
+      start: "20% bottom",
+      end: "100% center",
+      toggleActions: "play none none reverse",
+    },
+  });
+
+})
+
+
+mmFooterAnimation.add("(max-width:960px)",()=>{
+  let footerElements = gsap.utils.toArray(".ci-div");
+
+footerElements.forEach((section) => {
+  gsap.from(section, {
+    y: 30,
+    opacity: 0,
+    scrollTrigger: {
+      trigger: section,
+      markers: false,
+      start: "0% bottom",
+      end: "100% center",
+      toggleActions: "play none none reverse",
+    },
+  });
 });
+
+ 
+})
+
 
 gsap.from(".watermark", {
   y: 50,
