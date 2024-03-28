@@ -5,5 +5,6 @@
         "sideBar.background": "#1e1e1f",
         "editor.background": "#212121",
         "terminal.background": "#1f1e1e"
-        }
+        },
+        "liveServer.settings.port": 5501
 }
