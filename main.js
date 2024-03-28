@@ -1276,7 +1276,7 @@ function pointerPrototype () {
     this.deltaY = 0;
     this.down = false;
     this.moved = false;
-    this.color = [255, 255, 255];
+    this.color = [100, 200, 0];
 }
 
 let pointers = [];
@@ -1316,7 +1316,7 @@ function getWebGLContext (canvas) {
         supportLinearFiltering = gl.getExtension('OES_texture_half_float_linear');
     }
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    // gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : halfFloat.HALF_FLOAT_OES;
     let formatRGBA;
@@ -2594,39 +2594,7 @@ document.addEventListener('mousemove', e => {
 //     updatePointerUpData(pointers[0]);
 // });
 
-canvas.addEventListener('touchstart', e => {
-    e.preventDefault();
-    const touches = e.targetTouches;
-    while (touches.length >= pointers.length)
-        pointers.push(new pointerPrototype());
-    for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].pageX);
-        let posY = scaleByPixelRatio(touches[i].pageY);
-        updatePointerDownData(pointers[i + 1], touches[i].identifier, posX, posY);
-    }
-});
 
-canvas.addEventListener('touchmove', e => {
-    e.preventDefault();
-    const touches = e.targetTouches;
-    for (let i = 0; i < touches.length; i++) {
-        let pointer = pointers[i + 1];
-        if (!pointer.down) continue;
-        let posX = scaleByPixelRatio(touches[i].pageX);
-        let posY = scaleByPixelRatio(touches[i].pageY);
-        updatePointerMoveData(pointer, posX, posY);
-    }
-}, false);
-
-window.addEventListener('touchend', e => {
-    const touches = e.changedTouches;
-    for (let i = 0; i < touches.length; i++)
-    {
-        let pointer = pointers.find(p => p.id == touches[i].identifier);
-        if (pointer == null) continue;
-        updatePointerUpData(pointer);
-    }
-});
 
 window.addEventListener('keydown', e => {
     if (e.code === 'KeyP')
@@ -2673,38 +2641,102 @@ function correctDeltaY (delta) {
     if (aspectRatio > 1) delta /= aspectRatio;
     return delta;
 }
-
-function generateColor () {
-    let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-    c.r *= 0.15;
-    c.g *= 0.15;
-    c.b *= 0.15;
-    return c;
+function generateColor() {
+  // Convert RGB color to HSV
+  const { h, s, v } = RGBtoHSV(153, 196, 196);
+  // Use HSV values to generate the color
+  let c = HSVtoRGB(h, s, v);
+  c.r *= 0.0002;
+      c.g *= 0.0002;
+      c.b *= 0.0002;
+  return c;
 }
 
-function HSVtoRGB (h, s, v) {
-    let r, g, b, i, f, p, q, t;
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = v * (1 - s);
-    q = v * (1 - f * s);
-    t = v * (1 - (1 - f) * s);
+function RGBtoHSV(r, g, b) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
 
-    switch (i % 6) {
-        case 0: r = v, g = t, b = p; break;
-        case 1: r = q, g = v, b = p; break;
-        case 2: r = p, g = v, b = t; break;
-        case 3: r = p, g = q, b = v; break;
-        case 4: r = t, g = p, b = v; break;
-        case 5: r = v, g = p, b = q; break;
-    }
+  let max = Math.max(r, g, b);
+  let min = Math.min(r, g, b);
+  let delta = max - min;
 
-    return {
-        r,
-        g,
-        b
-    };
+  let h, s, v;
+
+  if (delta === 0) {
+      h = 0;
+  } else if (max === r) {
+      h = ((g - b) / delta) % 6;
+  } else if (max === g) {
+      h = (b - r) / delta + 2;
+  } else {
+      h = (r - g) / delta + 4;
+  }
+
+  h = Math.round(h * 60);
+  if (h < 0) h += 360;
+
+  s = Math.round((max === 0 ? 0 : delta / max) * 100);
+  v = Math.round(max * 100);
+
+  return { h: h / 360, s: s / 100, v: v / 100 };
 }
+
+function HSVtoRGB(h, s, v) {
+  let r, g, b, i, f, p, q, t;
+  i = Math.floor(h * 6);
+  f = h * 6 - i;
+  p = v * (1 - s);
+  q = v * (1 - f * s);
+  t = v * (1 - (1 - f) * s);
+
+  switch (i % 6) {
+      case 0: r = v, g = t, b = p; break;
+      case 1: r = q, g = v, b = p; break;
+      case 2: r = p, g = v, b = t; break;
+      case 3: r = p, g = q, b = v; break;
+      case 4: r = t, g = p, b = v; break;
+      case 5: r = v, g = p, b = q; break;
+  }
+
+  return {
+      r: Math.round(r * 255),
+      g: Math.round(g * 255),
+      b: Math.round(b * 255)
+  };
+}
+
+// function generateColor () {
+//     let c = HSVtoRGB(Math.random(), 1.0, 1.0);
+//     c.r *= 0.15;
+//     c.g *= 0.15;
+//     c.b *= 0.15;
+//     return c;
+// }
+
+// function HSVtoRGB (h, s, v) {
+//     let r, g, b, i, f, p, q, t;
+//     i = Math.floor(h * 6);
+//     f = h * 6 - i;
+//     p = v * (1 - s);
+//     q = v * (1 - f * s);
+//     t = v * (1 - (1 - f) * s);
+
+//     switch (i % 6) {
+//         case 0: r = v, g = t, b = p; break;
+//         case 1: r = q, g = v, b = p; break;
+//         case 2: r = p, g = v, b = t; break;
+//         case 3: r = p, g = q, b = v; break;
+//         case 4: r = t, g = p, b = v; break;
+//         case 5: r = v, g = p, b = q; break;
+//     }
+
+//     return {
+//         r,
+//         g,
+//         b
+//     };
+// }
 
 function normalizeColor (input) {
     let output = {
