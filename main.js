@@ -1226,7 +1226,7 @@ resizeCanvas();
 let backColor;
 if(currentMode == "dark"){
   backColor =  {
-    r:18,g:19,b:21
+    r:5,g:5,b:6
 
   }
 
